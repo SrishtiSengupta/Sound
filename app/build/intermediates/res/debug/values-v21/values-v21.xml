@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Srishti%20Sengupta/AndroidStudioProjects/Sound/app/src/main/res/values-v21/styles.xml -->
+    <!-- From: file:/E:/AndroidStudioProjects/Sound/app/src/main/res/values-v21/styles.xml -->
     <eat-comment/>
-    <style name="AppTheme" parent="android:Theme.Material.Light">
-    </style>
+    <style name="AppTheme" parent="android:Theme.Material.Light"/>
 </resources>
