@@ -47,6 +47,14 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:19:17
 	android:name
 		ADDED from AndroidManifest.xml:19:27
+service#sound.example.com.sound.SoundService
+ADDED from AndroidManifest.xml:23:9
+	android:enabled
+		ADDED from AndroidManifest.xml:25:13
+	android:exported
+		ADDED from AndroidManifest.xml:26:13
+	android:name
+		ADDED from AndroidManifest.xml:24:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 	android:targetSdkVersion
