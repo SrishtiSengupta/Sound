@@ -44,8 +44,7 @@
         <service
             android:name="sound.example.com.sound.AmbientSoundService"
             android:enabled="true"
-            android:exported="true" >
-        </service>
+            android:exported="true" />
     </application>
 
 </manifest>

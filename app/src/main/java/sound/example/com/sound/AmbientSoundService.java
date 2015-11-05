@@ -3,12 +3,15 @@ package sound.example.com.sound;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,6 +19,7 @@ import java.util.TimerTask;
 public class AmbientSoundService extends Service {
 
     private MediaRecorder mRecorder = null;
+    private MediaRecorder storeRecorder = null;
     private double ambient_sound;
     private List<Double> buffer = new ArrayList<Double>();
     private double max_ambient_sound;
@@ -42,13 +46,16 @@ public class AmbientSoundService extends Service {
             @Override
             public void run() {
                 /*AMBIENT SOUND*/
-                for (int j = 0; j < 1000; j++) {
-                    start();
-                    max_ambient_sound = getAmplitude();
+                stopRecording();
+                start();
+                max_ambient_sound = getAmplitude();
+
+                if (max_ambient_sound > 3000) {
+                    stop();
+                    storeRecordings();
                 }
-                stop();
+
                 Log.d("Ambient Sound: ", String.valueOf(max_ambient_sound));
-                Log.d("BUffer size", String.valueOf(buffer.size()));
 
             }
         }, 0, 5000);
@@ -63,6 +70,7 @@ public class AmbientSoundService extends Service {
         Toast.makeText(this, "Ambient Sound Service Destroyed!", Toast.LENGTH_LONG).show();
     }
 
+    //starts recording for ambient sound calculation
     public void start() {
         if (mRecorder == null) {
             mRecorder = new MediaRecorder();
@@ -70,6 +78,9 @@ public class AmbientSoundService extends Service {
             mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mRecorder.setOutputFile("/dev/null");
+
+            mRecorder.setAudioSamplingRate(480000);
+
             try {
                 mRecorder.prepare();
             } catch (IOException e) {
@@ -79,12 +90,51 @@ public class AmbientSoundService extends Service {
         }
     }
 
+    //stops recording for ambient sound
     public void stop() {
         if (mRecorder != null) {
             mRecorder.stop();
             mRecorder.release();
             mRecorder = null;
         }
+    }
+
+    //starts recording for storing sound samples
+    public void startRecording() {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String timestamp = dateFormat.format(new Date());
+
+        String outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording_" + timestamp + ".3gp";
+
+        if (storeRecorder == null) {
+            storeRecorder = new MediaRecorder();
+            storeRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            storeRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            storeRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            storeRecorder.setOutputFile(outputFile);
+
+            try {
+                storeRecorder.prepare();
+                storeRecorder.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //stops recording for storing samples
+    public void stopRecording() {
+        if (storeRecorder != null) {
+            storeRecorder.stop();
+            storeRecorder.release();
+            storeRecorder = null;
+        }
+    }
+
+    //saves recordings to internal storage
+    public void storeRecordings() {
+        startRecording();
     }
 
     public double getAmplitude() {
@@ -95,19 +145,11 @@ public class AmbientSoundService extends Service {
             ambient_sound = 0.0;
             buffer.add(ambient_sound);
         }
-        max_ambient_sound = calculateAverage(buffer);
-        return max_ambient_sound;
+        Log.d("BUffer size", String.valueOf(buffer.size()));
+        buffer.clear();
+
+        return ambient_sound;
+
     }
 
-    private double calculateAverage(List<Double> buffer) {
-        Double sum = 0.0;
-        if (!buffer.isEmpty()) {
-            for (Double i : buffer) {
-                sum += i;
-            }
-            double temp = sum.doubleValue() / buffer.size();
-            return temp;
-        }
-        return sum;
-    }
 }
