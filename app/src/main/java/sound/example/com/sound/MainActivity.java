@@ -8,6 +8,10 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends Activity
@@ -25,6 +29,15 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Parse Test
+        ParseUser.enableAutomaticUser();
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+
+        Toast.makeText(this, testObject.getString("foo"), Toast.LENGTH_SHORT)
+                .show();
 
 //        mGoogleApiClient = new GoogleApiClient.Builder(this)
 //                .addApi(Drive.API)

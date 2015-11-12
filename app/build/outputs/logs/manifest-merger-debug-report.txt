@@ -44,45 +44,47 @@ ADDED from AndroidManifest.xml:11:5
 application
 ADDED from AndroidManifest.xml:13:5
 	android:label
-		ADDED from AndroidManifest.xml:16:9
-	android:allowBackup
-		ADDED from AndroidManifest.xml:14:9
-	android:icon
-		ADDED from AndroidManifest.xml:15:9
-	android:theme
 		ADDED from AndroidManifest.xml:17:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:15:9
+	android:icon
+		ADDED from AndroidManifest.xml:16:9
+	android:theme
+		ADDED from AndroidManifest.xml:18:9
+	android:name
+		ADDED from AndroidManifest.xml:14:9
 activity#sound.example.com.sound.MainActivity
-ADDED from AndroidManifest.xml:18:9
+ADDED from AndroidManifest.xml:19:9
 	android:label
+		ADDED from AndroidManifest.xml:21:13
+	android:name
 		ADDED from AndroidManifest.xml:20:13
-	android:name
-		ADDED from AndroidManifest.xml:19:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:21:13
+ADDED from AndroidManifest.xml:22:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:22:17
+ADDED from AndroidManifest.xml:23:17
 	android:name
-		ADDED from AndroidManifest.xml:22:25
+		ADDED from AndroidManifest.xml:23:25
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:24:17
+ADDED from AndroidManifest.xml:25:17
 	android:name
-		ADDED from AndroidManifest.xml:24:27
+		ADDED from AndroidManifest.xml:25:27
 service#sound.example.com.sound.SoundService
-ADDED from AndroidManifest.xml:28:9
+ADDED from AndroidManifest.xml:29:9
 	android:enabled
-		ADDED from AndroidManifest.xml:30:13
-	android:exported
 		ADDED from AndroidManifest.xml:31:13
-	android:name
-		ADDED from AndroidManifest.xml:29:13
-service#sound.example.com.sound.AmbientSoundService
-ADDED from AndroidManifest.xml:38:9
-	android:enabled
-		ADDED from AndroidManifest.xml:40:13
 	android:exported
-		ADDED from AndroidManifest.xml:41:13
+		ADDED from AndroidManifest.xml:32:13
 	android:name
-		ADDED from AndroidManifest.xml:39:13
+		ADDED from AndroidManifest.xml:30:13
+service#sound.example.com.sound.AmbientSoundService
+ADDED from AndroidManifest.xml:39:9
+	android:enabled
+		ADDED from AndroidManifest.xml:41:13
+	android:exported
+		ADDED from AndroidManifest.xml:42:13
+	android:name
+		ADDED from AndroidManifest.xml:40:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 	android:targetSdkVersion
