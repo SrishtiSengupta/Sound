@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.io.File;
 
 
 public class MainActivity extends Activity
@@ -30,6 +34,15 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //creates 'Recordings' folder in external storage
+        String folder = "Recordings";
+        File f = new File(Environment.getExternalStorageDirectory(),
+                folder);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        Log.d("Folder name", String.valueOf(f));
+
         //Parse Test
         ParseUser.enableAutomaticUser();
         ParseObject testObject = new ParseObject("TestObject");
@@ -38,6 +51,7 @@ public class MainActivity extends Activity
 
         Toast.makeText(this, testObject.getString("foo"), Toast.LENGTH_SHORT)
                 .show();
+
 
 //        mGoogleApiClient = new GoogleApiClient.Builder(this)
 //                .addApi(Drive.API)

@@ -8,6 +8,14 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +34,7 @@ public class AmbientSoundService extends Service {
 
     private final Timer t = new Timer();
 
+    //constructor
     public AmbientSoundService() {
     }
 
@@ -38,14 +47,12 @@ public class AmbientSoundService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         // Continues running until it is stopped
-
         Toast.makeText(this, "Ambient Sound Service Started", Toast.LENGTH_LONG).show();
         Log.d("Ambient Sound Service", "STARTED");
 
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                /*AMBIENT SOUND*/
                 stopRecording();
                 start();
                 max_ambient_sound = getAmplitude();
@@ -53,10 +60,10 @@ public class AmbientSoundService extends Service {
                 if (max_ambient_sound > 3000) {
                     stop();
                     storeRecordings();
+                    uploadToParse();
                 }
 
                 Log.d("Ambient Sound: ", String.valueOf(max_ambient_sound));
-
             }
         }, 0, 5000);
 
@@ -105,7 +112,8 @@ public class AmbientSoundService extends Service {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timestamp = dateFormat.format(new Date());
 
-        String outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording_" + timestamp + ".3gp";
+        String outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                "/Recordings" + "/recording_" + timestamp + ".3gp";
 
         if (storeRecorder == null) {
             storeRecorder = new MediaRecorder();
@@ -121,6 +129,7 @@ public class AmbientSoundService extends Service {
                 e.printStackTrace();
             }
         }
+
     }
 
     //stops recording for storing samples
@@ -137,6 +146,7 @@ public class AmbientSoundService extends Service {
         startRecording();
     }
 
+    //calculates the max Amplitude for ambient noise calculation
     public double getAmplitude() {
         if (mRecorder != null) {
             ambient_sound = mRecorder.getMaxAmplitude();
@@ -145,11 +155,59 @@ public class AmbientSoundService extends Service {
             ambient_sound = 0.0;
             buffer.add(ambient_sound);
         }
-        Log.d("BUffer size", String.valueOf(buffer.size()));
+        Log.d("Buffer size", String.valueOf(buffer.size()));
         buffer.clear();
 
         return ambient_sound;
 
+    }
+
+    //uploads to Parse Server
+    public void uploadToParse() {
+
+        File dir = new File(Environment.getExternalStorageDirectory()
+                + "/Recordings");
+        File[] files = dir.listFiles();
+        int numberOfFiles = files.length;
+        Log.d("number", String.valueOf(numberOfFiles));
+
+
+        for (int i = 0; i < numberOfFiles; i++) {
+
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            BufferedInputStream in = null;
+            try {
+                in = new BufferedInputStream(new FileInputStream(files[i]));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            int read;
+            byte[] buff = new byte[1024];
+            try {
+                while ((read = in.read(buff)) > 0) {
+                    out.write(buff, 0, read);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            byte[] audioBytes = out.toByteArray();
+
+            //create a file called recording.3gp which has the data of your recording
+            ParseFile file = new ParseFile("recording.3gp", audioBytes);
+            file.saveInBackground();
+
+            //send it to parse
+            ParseObject SoundRecordings = new ParseObject("SoundRecordings");
+            SoundRecordings.put("recording", file);
+            SoundRecordings.saveInBackground();
+
+        }
     }
 
 }
