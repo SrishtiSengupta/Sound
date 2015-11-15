@@ -40,7 +40,11 @@
         <service
             android:name=".AmbientSoundService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".GoogleDrive.CreateFolderActivity"></activity>
+        <activity android:name=".GoogleDrive.BaseDemoActivity"></activity>
+        <activity android:name=".GoogleDrive.CreateFileInFolderActivity"></activity>
     </application>
 
 </manifest>

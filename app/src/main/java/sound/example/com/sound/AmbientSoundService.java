@@ -198,6 +198,9 @@ public class AmbientSoundService extends Service {
             }
             byte[] audioBytes = out.toByteArray();
 
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            String timestamp = dateFormat.format(new Date());
+
             //create a file called recording.3gp which has the data of your recording
             ParseFile file = new ParseFile("recording.3gp", audioBytes);
             file.saveInBackground();

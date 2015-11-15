@@ -46,4 +46,13 @@
         android:layout_alignStart="@+id/textView"
         android:layout_alignEnd="@+id/textView" />
 
+    <Button
+        android:id="@+id/button_make_folder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make Folder"
+        android:onClick="makeFolder"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

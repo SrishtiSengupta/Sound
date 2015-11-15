@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="19"
-        android:targetSdkVersion="22" />
+        android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -47,6 +47,15 @@
             android:name="sound.example.com.sound.AmbientSoundService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name="sound.example.com.sound.GoogleDrive.CreateFolderActivity" >
+        </activity>
+        <activity android:name="sound.example.com.sound.GoogleDrive.BaseDemoActivity" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
