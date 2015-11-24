@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.drive.Drive;
 import com.google.android.gms.drive.DriveFolder;
+import com.google.android.gms.drive.DriveId;
 import com.google.android.gms.drive.MetadataChangeSet;
 
 /**
@@ -28,7 +29,8 @@ public class CreateFolderActivity extends BaseDemoActivity {
                 showMessage("Error while trying to create the folder");
                 return;
             }
-            showMessage("Created a folder: " + result.getDriveFolder().getDriveId());
+            DriveId driveId = result.getDriveFolder().getDriveId();
+            showMessage("Created a folder: " + driveId);
         }
     };
 }

@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
-        android:name=".ParseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,6 +23,19 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.dropbox.client2.android.AuthActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <data android:scheme="db-tdv057og27o4fat" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -42,9 +54,16 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".GoogleDrive.CreateFolderActivity"></activity>
-        <activity android:name=".GoogleDrive.BaseDemoActivity"></activity>
-        <activity android:name=".GoogleDrive.CreateFileInFolderActivity"></activity>
+        <activity android:name=".GoogleDrive.CreateFolderActivity" />
+        <activity android:name=".GoogleDrive.BaseDemoActivity" />
+        <activity android:name=".GoogleDrive.CreateFileInFolderActivity" />
+        <!--<activity android:name=".Main2Activity" >-->
+        <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
+        <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+        <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
+        <!--</activity>-->
     </application>
 
 </manifest>

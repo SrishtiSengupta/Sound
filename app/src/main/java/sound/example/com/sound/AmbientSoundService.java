@@ -8,14 +8,6 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +23,7 @@ public class AmbientSoundService extends Service {
     private double ambient_sound;
     private List<Double> buffer = new ArrayList<Double>();
     private double max_ambient_sound;
+    private String FILE_DIR = "/AudioRecordings/";
 
     private final Timer t = new Timer();
 
@@ -60,7 +53,9 @@ public class AmbientSoundService extends Service {
                 if (max_ambient_sound > 3000) {
                     stop();
                     storeRecordings();
-                    uploadToParse();
+//                    uploadToGoogleDrive();
+//                    uploadToDropbox();
+//                    uploadToParse();
                 }
 
                 Log.d("Ambient Sound: ", String.valueOf(max_ambient_sound));
@@ -129,7 +124,6 @@ public class AmbientSoundService extends Service {
                 e.printStackTrace();
             }
         }
-
     }
 
     //stops recording for storing samples
@@ -162,55 +156,67 @@ public class AmbientSoundService extends Service {
 
     }
 
-    //uploads to Parse Server
-    public void uploadToParse() {
+    //upload to google drive
+    public void uploadToGoogleDrive() {
 
-        File dir = new File(Environment.getExternalStorageDirectory()
-                + "/Recordings");
-        File[] files = dir.listFiles();
-        int numberOfFiles = files.length;
-        Log.d("number", String.valueOf(numberOfFiles));
-
-
-        for (int i = 0; i < numberOfFiles; i++) {
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            BufferedInputStream in = null;
-            try {
-                in = new BufferedInputStream(new FileInputStream(files[i]));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            int read;
-            byte[] buff = new byte[1024];
-            try {
-                while ((read = in.read(buff)) > 0) {
-                    out.write(buff, 0, read);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                out.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            byte[] audioBytes = out.toByteArray();
-
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//            String timestamp = dateFormat.format(new Date());
-
-            //create a file called recording.3gp which has the data of your recording
-            ParseFile file = new ParseFile("recording.3gp", audioBytes);
-            file.saveInBackground();
-
-            //send it to parse
-            ParseObject SoundRecordings = new ParseObject("SoundRecordings");
-            SoundRecordings.put("recording", file);
-            SoundRecordings.saveInBackground();
-
-        }
     }
+
+//    //uploads to Dropbox
+//    public void uploadToDropbox() {
+////        Log.d("AAAAAA", String.valueOf(mDBApi));
+//        UploadFileToDropbox upload = new UploadFileToDropbox(this, mDBApi, FILE_DIR);
+//        upload.execute();
+//    }
+
+//    //uploads to Parse Server
+//    public void uploadToParse() {
+//
+//        File dir = new File(Environment.getExternalStorageDirectory()
+//                + "/Recordings");
+//        File[] files = dir.listFiles();
+//        int numberOfFiles = files.length;
+//        Log.d("number", String.valueOf(numberOfFiles));
+//
+//
+//        for (int i = 0; i < numberOfFiles; i++) {
+//
+//            ByteArrayOutputStream out = new ByteArrayOutputStream();
+//            BufferedInputStream in = null;
+//            try {
+//                in = new BufferedInputStream(new FileInputStream(files[i]));
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//
+//            int read;
+//            byte[] buff = new byte[1024];
+//            try {
+//                while ((read = in.read(buff)) > 0) {
+//                    out.write(buff, 0, read);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                out.flush();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            byte[] audioBytes = out.toByteArray();
+//
+////            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+////            String timestamp = dateFormat.format(new Date());
+//
+//            //create a file called recording.3gp which has the data of your recording
+//            ParseFile file = new ParseFile("recording.3gp", audioBytes);
+//            file.saveInBackground();
+//
+//            //send it to parse
+//            ParseObject SoundRecordings = new ParseObject("SoundRecordings");
+//            SoundRecordings.put("recording", file);
+//            SoundRecordings.saveInBackground();
+//
+//        }
+//    }
 
 }

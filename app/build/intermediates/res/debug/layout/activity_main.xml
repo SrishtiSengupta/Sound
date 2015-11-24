@@ -55,4 +55,21 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create File"
+        android:onClick="makeFile"
+        android:id="@+id/button_file_in_folder"
+        android:layout_below="@+id/button_make_folder"
+        android:layout_centerHorizontal="true" />
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Link to Dropbox"-->
+        <!--android:id="@+id/button_dropbox"-->
+        <!--android:layout_below="@+id/button_make_folder"-->
+        <!--android:layout_centerHorizontal="true" />-->
+
 </RelativeLayout><!-- From: file:/E:/AndroidStudioProjects/Sound/app/src/main/res/layout/activity_main.xml -->

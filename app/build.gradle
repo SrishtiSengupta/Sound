@@ -21,20 +21,25 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/Parse-1.10.3.jar')
-    compile 'com.parse.bolts:bolts-android:1.+'
+
+    //parse integration
+//    compile files('libs/Parse-1.10.3.jar')
+//    compile 'com.parse.bolts:bolts-android:1.+'
 
     //drive integration
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.google.android.gms:play-services-drive:8.3.0'
+//        compile 'com.android.support:appcompat-v7:23.0.1'
+//        compile 'com.google.android.gms:play-services-identity:7.8.0'
+//        compile('com.google.api-client:google-api-client-android:1.20.0') {
+//            exclude group: 'org.apache.httpcomponents'
+//        }
+//        compile('com.google.apis:google-api-services-drive:v2-rev170-1.20.0') {
+//            exclude group: 'org.apache.httpcomponents'
+//        }
+//        compile 'com.google.android.gms:play-services:8.1.0'
 
-//    compile 'com.android.support:appcompat-v7:23.0.1'
-//    compile 'com.google.android.gms:play-services-identity:7.8.0'
-//    compile('com.google.api-client:google-api-client-android:1.20.0') {
-//        exclude group: 'org.apache.httpcomponents'
-//    }
-//    compile('com.google.apis:google-api-services-drive:v2-rev170-1.20.0') {
-//        exclude group: 'org.apache.httpcomponents'
-//    }
-//    compile 'com.google.android.gms:play-services:8.1.0'
+    //dropbox integration
+//    compile files('libs/dropbox-android-sdk-1.6.3.jar')
+//    compile files('libs/json_simple-1.1.jar')
 }

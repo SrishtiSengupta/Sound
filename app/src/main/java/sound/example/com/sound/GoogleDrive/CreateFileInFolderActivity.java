@@ -30,6 +30,7 @@ public class CreateFileInFolderActivity extends BaseDemoActivity {
                 showMessage("Cannot find DriveId. Are you authorized to view this file?");
                 return;
             }
+
             mFolderDriveId = result.getDriveId();
             Drive.DriveApi.newDriveContents(getGoogleApiClient())
                     .setResultCallback(driveContentsCallback);
