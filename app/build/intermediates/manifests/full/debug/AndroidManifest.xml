@@ -63,14 +63,7 @@
         <activity android:name="sound.example.com.sound.GoogleDrive.CreateFolderActivity" />
         <activity android:name="sound.example.com.sound.GoogleDrive.BaseDemoActivity" />
         <activity android:name="sound.example.com.sound.GoogleDrive.CreateFileInFolderActivity" />
-        <!-- <activity android:name=".Main2Activity" > -->
-        <!-- &lt;!&ndash;<intent-filter>&ndash;&gt; -->
-        <!-- &lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
 
-
-        <!-- &lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
-        <!-- &lt;!&ndash;</intent-filter>&ndash;&gt; -->
-        <!-- </activity> -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

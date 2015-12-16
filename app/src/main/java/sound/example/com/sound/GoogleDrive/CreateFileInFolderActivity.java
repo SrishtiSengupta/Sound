@@ -49,6 +49,7 @@ public class CreateFileInFolderActivity extends BaseDemoActivity {
                     MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
                             .setTitle("New file")
                             .setMimeType("text/plain")
+                            .setPinned(true)
                             .setStarred(true).build();
                     folder.createFile(getGoogleApiClient(), changeSet, result.getDriveContents())
                             .setResultCallback(fileCallback);

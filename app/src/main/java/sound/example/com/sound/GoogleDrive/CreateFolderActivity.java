@@ -30,6 +30,10 @@ public class CreateFolderActivity extends BaseDemoActivity {
                 return;
             }
             DriveId driveId = result.getDriveFolder().getDriveId();
+
+            /*TODO: Get metadata here!*/
+//            PendingResult<DriveResource.MetadataResult> mdata = driveId.asDriveFolder().getMetadata(mGoogleApiClient);
+//            Log.d("metadata", String.valueOf(mdata));
             showMessage("Created a folder: " + driveId);
         }
     };

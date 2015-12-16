@@ -57,13 +57,7 @@
         <activity android:name=".GoogleDrive.CreateFolderActivity" />
         <activity android:name=".GoogleDrive.BaseDemoActivity" />
         <activity android:name=".GoogleDrive.CreateFileInFolderActivity" />
-        <!--<activity android:name=".Main2Activity" >-->
-        <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
-        <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
 
-        <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-        <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
-        <!--</activity>-->
     </application>
 
 </manifest>

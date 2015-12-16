@@ -53,9 +53,6 @@ public class AmbientSoundService extends Service {
                 if (max_ambient_sound > 3000) {
                     stop();
                     storeRecordings();
-//                    uploadToGoogleDrive();
-//                    uploadToDropbox();
-//                    uploadToParse();
                 }
 
                 Log.d("Ambient Sound: ", String.valueOf(max_ambient_sound));
@@ -160,13 +157,6 @@ public class AmbientSoundService extends Service {
     public void uploadToGoogleDrive() {
 
     }
-
-//    //uploads to Dropbox
-//    public void uploadToDropbox() {
-////        Log.d("AAAAAA", String.valueOf(mDBApi));
-//        UploadFileToDropbox upload = new UploadFileToDropbox(this, mDBApi, FILE_DIR);
-//        upload.execute();
-//    }
 
 //    //uploads to Parse Server
 //    public void uploadToParse() {
