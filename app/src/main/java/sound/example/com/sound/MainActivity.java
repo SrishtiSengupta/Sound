@@ -29,7 +29,7 @@ import java.io.FileNotFoundException;
 public class MainActivity extends Activity {
 
     // Dropbox app specific settings
-    private static final String APP_KEY = "xxxxxxxxxx";
+    private static final String APP_KEY = "xxxxxxxxxxxxx";
     private static final String APP_SECRET = "xxxxxxxxxxxx";
 
     private static final String ACCOUNT_PREFS_NAME = "prefs";
@@ -146,7 +146,6 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 String file_path = Environment.getExternalStorageDirectory() + "/Recordings";
-//                File tmpFile = new File(file_path, "test.3gp");
                 File tmpFile = new File(file_path);
                 File[] files = tmpFile.listFiles();
                 int numberOfFiles = files.length;
@@ -179,18 +178,6 @@ public class MainActivity extends Activity {
             }
         });
     }
-
-//    // Method to create Google Drive Folder
-//    public void makeFolder(View view) {
-//        Intent intent = new Intent(getApplicationContext(), CreateFolderActivity.class);
-//        startActivity(intent);
-//    }
-//
-//    // Method to create Google Drive Folder
-//    public void makeFile(View view) {
-//        Intent intent = new Intent(getApplicationContext(), CreateFileInFolderActivity.class);
-//        startActivity(intent);
-//    }
 
     @Override
     protected void onResume() {

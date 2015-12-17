@@ -23,7 +23,6 @@ public class AmbientSoundService extends Service {
     private double ambient_sound;
     private List<Double> buffer = new ArrayList<Double>();
     private double max_ambient_sound;
-    private String FILE_DIR = "/AudioRecordings/";
 
     private final Timer t = new Timer();
 
@@ -150,11 +149,6 @@ public class AmbientSoundService extends Service {
         buffer.clear();
 
         return ambient_sound;
-
-    }
-
-    //upload to google drive
-    public void uploadToGoogleDrive() {
 
     }
 
