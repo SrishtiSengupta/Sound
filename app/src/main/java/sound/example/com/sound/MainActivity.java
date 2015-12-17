@@ -29,8 +29,8 @@ import java.io.FileNotFoundException;
 public class MainActivity extends Activity {
 
     // Dropbox app specific settings
-    private static final String APP_KEY = "xxxxxxxxxxx";
-    private static final String APP_SECRET = "xxxxxxxxxxx";
+    private static final String APP_KEY = "xxxxxxxxxx";
+    private static final String APP_SECRET = "xxxxxxxxxxxx";
 
     private static final String ACCOUNT_PREFS_NAME = "prefs";
     private static final String ACCESS_KEY_NAME = "ACCESS_KEY";
@@ -146,23 +146,35 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 String file_path = Environment.getExternalStorageDirectory() + "/Recordings";
-                File tmpFile = new File(file_path, "test.3gp");
-//                File[] files = tmpFile.listFiles();
-//                int numberOfFiles = files.length;
+//                File tmpFile = new File(file_path, "test.3gp");
+                File tmpFile = new File(file_path);
+                File[] files = tmpFile.listFiles();
+                int numberOfFiles = files.length;
+                Log.d("number of files", String.valueOf(numberOfFiles));
 
-                FileInputStream fis = null;
-                try {
-                    fis = new FileInputStream(tmpFile);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                for (int i = 0; i < numberOfFiles; i++) {
+                    Log.d("Filename", String.valueOf(files[i]));
+                    Log.d("Filename", String.valueOf(files[i]).split("/")[5]);
                 }
 
-                try {
-                    DropboxAPI.Entry newEntry = mDBApi.putFileOverwrite("test.3gp", fis, tmpFile.length(), null);
-                } catch (DropboxUnlinkedException e) {
-                    Log.e("DbExampleLog", "User has unlinked.");
-                } catch (DropboxException e) {
-                    Log.e("DbExampleLog", "Something went wrong while uploading.");
+                for (int i = 0; i < numberOfFiles; i++) {
+                    File uploadFile = new File(file_path, String.valueOf(files[i]).split("/")[5]);
+
+                    FileInputStream fis = null;
+                    try {
+                        fis = new FileInputStream(uploadFile);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        DropboxAPI.Entry newEntry = mDBApi.putFileOverwrite(String.valueOf(files[i]).split("/")[5], fis, uploadFile.length(), null);
+                    } catch (DropboxUnlinkedException e) {
+                        Log.e("DbExampleLog", "User has unlinked.");
+                    } catch (DropboxException e) {
+                        Log.e("DbExampleLog", "Something went wrong while uploading.");
+                    }
+
                 }
             }
         });
