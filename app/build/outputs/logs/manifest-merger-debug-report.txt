@@ -143,9 +143,13 @@ ADDED from AndroidManifest.xml:57:17
 receiver#sound.example.com.sound.DeviceBootReceiver
 ADDED from AndroidManifest.xml:62:9
 	android:enabled
-		ADDED from AndroidManifest.xml:63:13
+		ADDED from AndroidManifest.xml:64:13
 	android:name
-		ADDED from AndroidManifest.xml:62:19
+		ADDED from AndroidManifest.xml:63:13
+activity#sound.example.com.sound.HelpActivity
+ADDED from AndroidManifest.xml:70:9
+	android:name
+		ADDED from AndroidManifest.xml:70:19
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:23.0.1:20:5

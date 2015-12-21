@@ -32,8 +32,8 @@ import java.util.Calendar;
 public class MainActivity extends Activity {
 
     // Dropbox app specific settings
-    private static final String APP_KEY = "xxxxxxxxxxxxxxxxx";
-    private static final String APP_SECRET = "xxxxxxxxxxxxxxxxx";
+    private static final String APP_KEY = "xxxxxxxxxxxxxxxx";
+    private static final String APP_SECRET = "xxxxxxxxxxxxxxxx";
 
     private static final String ACCOUNT_PREFS_NAME = "prefs";
     private static final String ACCESS_KEY_NAME = "ACCESS_KEY";
@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
     private Button sync;
     private Button auto_sync;
     private Button cancel_sync;
+    private Button help;
 
     public static DropboxAPI<AndroidAuthSession> mDBApi;
 
@@ -158,6 +159,15 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 cancelSync();
+            }
+        });
+
+        help = (Button) findViewById(R.id.button_help);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(myIntent);
             }
         });
 
