@@ -1,6 +1,8 @@
 package sound.example.com.sound;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,16 +26,14 @@ import com.dropbox.client2.session.AppKeyPair;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Calendar;
 
-
-/*TODO: 1. Put Alarm Manager to schedule
-        2. Check folder empty condition if syncing to dropbox */
 
 public class MainActivity extends Activity {
 
     // Dropbox app specific settings
-    private static final String APP_KEY = "xxxxxxxxxxxxx";
-    private static final String APP_SECRET = "xxxxxxxxxxxxxx";
+    private static final String APP_KEY = "xxxxxxxxxxxxxxxxx";
+    private static final String APP_SECRET = "xxxxxxxxxxxxxxxxx";
 
     private static final String ACCOUNT_PREFS_NAME = "prefs";
     private static final String ACCESS_KEY_NAME = "ACCESS_KEY";
@@ -45,16 +45,23 @@ public class MainActivity extends Activity {
     private Button mSubmit;
     private Button logout;
     private Button delete;
-
-    public DropboxAPI<AndroidAuthSession> mDBApi;
-
     private Button sync;
+    private Button auto_sync;
+    private Button cancel_sync;
+
+    public static DropboxAPI<AndroidAuthSession> mDBApi;
+
+    private PendingIntent pendingIntent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /* Retrieve a PendingIntent that will perform a broadcast */
+        Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
 
         // We create a new AuthSession so that we can use the Dropbox API.
         final AndroidAuthSession session = buildSession();
@@ -138,6 +145,22 @@ public class MainActivity extends Activity {
             }
         });
 
+        auto_sync = (Button) findViewById(R.id.button_auto_sync);
+        auto_sync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startAt1400();
+            }
+        });
+
+        cancel_sync = (Button) findViewById(R.id.button_cancel_sync);
+        cancel_sync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelSync();
+            }
+        });
+
 //
 //        //Parse Test
 //        ParseUser.enableAutomaticUser();
@@ -147,6 +170,30 @@ public class MainActivity extends Activity {
 //
 //        Toast.makeText(this, testObject.getString("foo"), Toast.LENGTH_SHORT)
 //                .show();
+    }
+
+    public void startAt1400() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //24 hour interval
+        int interval = 1000 * 60 * 60 * 24;
+
+        /* Set the alarm to start at 2:00 PM */
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 00);
+
+        /* Repeating on every 24 hour interval */
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                interval, pendingIntent);
+        Toast.makeText(MainActivity.this, "Auto Sync Started", Toast.LENGTH_LONG).show();
+    }
+
+    public void cancelSync() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.cancel(pendingIntent);
+        Toast.makeText(this, "Auto Sync Canceled", Toast.LENGTH_LONG).show();
     }
 
     // Method to start the service
@@ -161,7 +208,7 @@ public class MainActivity extends Activity {
     }
 
     // Method for syncing files to Dropbox
-    public void sync() throws FileNotFoundException {
+    public static void sync() throws FileNotFoundException {
 
         AsyncTask.execute(new Runnable() {
             @Override
