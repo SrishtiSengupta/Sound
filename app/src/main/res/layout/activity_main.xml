@@ -51,17 +51,16 @@
         android:layout_height="wrap_content"
         android:text="Link to Dropbox"
         android:id="@+id/button_dropbox"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="112dp" />
+        android:layout_above="@+id/button_logout"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="sync"
         android:id="@+id/sync_button"
-        android:layout_above="@+id/button_dropbox"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/button_start"
+        android:layout_alignEnd="@+id/button_start" />
 
     <Button
         android:layout_width="wrap_content"
@@ -70,5 +69,13 @@
         android:id="@+id/button_logout"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/button_delete"
+        android:layout_alignTop="@+id/sync_button"
+        android:layout_alignStart="@+id/button_stop" />
 
 </RelativeLayout>

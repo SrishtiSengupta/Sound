@@ -26,11 +26,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
+/*TODO: 1. Put Alarm Manager to schedule
+        2. Check folder empty condition if syncing to dropbox */
+
 public class MainActivity extends Activity {
 
     // Dropbox app specific settings
     private static final String APP_KEY = "xxxxxxxxxxxxx";
-    private static final String APP_SECRET = "xxxxxxxxxxxx";
+    private static final String APP_SECRET = "xxxxxxxxxxxxxx";
 
     private static final String ACCOUNT_PREFS_NAME = "prefs";
     private static final String ACCESS_KEY_NAME = "ACCESS_KEY";
@@ -41,6 +44,7 @@ public class MainActivity extends Activity {
 
     private Button mSubmit;
     private Button logout;
+    private Button delete;
 
     public DropboxAPI<AndroidAuthSession> mDBApi;
 
@@ -114,6 +118,23 @@ public class MainActivity extends Activity {
                 logOut();
                 tokenExists = false;
                 Toast.makeText(MainActivity.this, "Logged Out!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        delete = (Button) findViewById(R.id.button_delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String file_path = Environment.getExternalStorageDirectory() + "/Recordings";
+                File file = new File(file_path);
+                String[] myFiles;
+                myFiles = file.list();
+
+                for (int i = 0; i < myFiles.length; i++) {
+                    File myFile = new File(file, myFiles[i]);
+                    myFile.delete();
+                }
+                Toast.makeText(MainActivity.this, "Files deleted!", Toast.LENGTH_SHORT).show();
             }
         });
 
